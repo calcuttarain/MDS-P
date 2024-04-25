@@ -1,0 +1,82 @@
+erDiagram
+    UTILIZATOR ||--|| PACIENT : "is_a"
+    UTILIZATOR ||--o{ FEEDBACK : "creates"
+    UTILIZATOR ||--|| DOCTOR : "is_a"
+    DOCTOR ||--|| CABINET : "works in"
+    PACIENT ||--o{ PROGRAMARE : "has"
+    DOCTOR ||--o{ PROGRAMARE : "assigned to"
+    UTILIZATOR ||--o{ SESIUNE_CHAT : "participates in"
+    SESIUNE_CHAT ||--o{ MESAJ_CHAT : "contains"
+    UTILIZATOR {
+        int ID_Utilizator PK
+        varchar Nume
+        varchar Prenume
+        varchar Email UK
+        varchar Hash_Parola
+        varchar Rol
+        varchar Telefon
+        date Data_Crearii
+        date Ultima_Actualizare
+    }
+    PACIENT {
+        int ID_Pacient FK
+        text Istoric_Medical
+        text Alergii
+        varchar Grupa_Sange
+    }
+    FEEDBACK {
+        int ID_Feedback PK
+        int ID_Utilizator FK
+        text Mesaj
+        datetime Data_Si_Ora
+        varchar Stare
+    }
+    DOCTOR {
+        int ID_Doctor FK
+        varchar Specializare
+        text Descriere
+        int ID_Cabinet FK
+    }
+    CABINET {
+        int ID_Cabinet PK
+        varchar Nume
+        varchar Adresa
+        varchar Telefon
+        varchar Email
+    }
+    PROGRAMARE {
+        int ID_Programare PK
+        int ID_Pacient FK
+        int ID_Doctor FK
+        datetime Data_Si_Ora
+        varchar Stare
+        text Note
+    }
+    SESIUNE_CHAT {
+        int ID_Sesiune PK
+        int ID_Utilizator FK
+        datetime Data_Inceperii
+        datetime Data_Incheierii
+        varchar Stare_Sesiune
+    }
+    MESAJ_CHAT {
+        int ID_Mesaj PK
+        int ID_Sesiune FK
+        varchar Directie
+        text Continut
+        datetime Data_Si_Ora
+    }
+    AUDIT_SECURITATE {
+        int ID_Audit PK
+        varchar Tip
+        text Descriere
+        datetime Data_Si_Ora
+        varchar Rezultat
+    }
+    RAPORT_ANALIZA {
+        int ID_Raport PK
+        varchar Tip_Raport
+        date Data_Generarii
+        text Sumar
+        text Detalii
+    }
