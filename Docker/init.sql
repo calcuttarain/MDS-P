@@ -1,8 +1,6 @@
--- Crearea bazei de date
 CREATE DATABASE IF NOT EXISTS DB_MDS;
 USE DB_MDS;
 
--- User table
 CREATE TABLE IF NOT EXISTS USER (
                                     User_ID INT AUTO_INCREMENT PRIMARY KEY,
                                     First_Name VARCHAR(255),
@@ -15,7 +13,6 @@ CREATE TABLE IF NOT EXISTS USER (
                                     Last_Update TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Patient profile table
 CREATE TABLE IF NOT EXISTS PATIENT (
                                        Patient_ID INT,
                                        Medical_History TEXT,
@@ -24,7 +21,6 @@ CREATE TABLE IF NOT EXISTS PATIENT (
                                        FOREIGN KEY (Patient_ID) REFERENCES USER(User_ID)
 );
 
--- Feedback table
 CREATE TABLE IF NOT EXISTS FEEDBACK (
                                         Feedback_ID INT AUTO_INCREMENT PRIMARY KEY,
                                         User_ID INT,
@@ -34,7 +30,6 @@ CREATE TABLE IF NOT EXISTS FEEDBACK (
                                         FOREIGN KEY (User_ID) REFERENCES USER(User_ID)
 );
 
--- Office table
 CREATE TABLE IF NOT EXISTS OFFICE (
                                       Office_ID INT AUTO_INCREMENT PRIMARY KEY,
                                       Name VARCHAR(255),
@@ -43,7 +38,6 @@ CREATE TABLE IF NOT EXISTS OFFICE (
                                       Email VARCHAR(255)
 );
 
--- Doctor profile table
 CREATE TABLE IF NOT EXISTS DOCTOR (
                                       Doctor_ID INT,
                                       Specialization VARCHAR(255),
@@ -53,7 +47,6 @@ CREATE TABLE IF NOT EXISTS DOCTOR (
                                       FOREIGN KEY (Office_ID) REFERENCES OFFICE(Office_ID)
 );
 
--- Appointment table
 CREATE TABLE IF NOT EXISTS APPOINTMENT (
                                            Appointment_ID INT AUTO_INCREMENT PRIMARY KEY,
                                            Patient_ID INT,
@@ -65,7 +58,6 @@ CREATE TABLE IF NOT EXISTS APPOINTMENT (
                                            FOREIGN KEY (Doctor_ID) REFERENCES USER(User_ID)
 );
 
--- Chat session table
 CREATE TABLE IF NOT EXISTS CHAT_SESSION (
                                             Session_ID INT AUTO_INCREMENT PRIMARY KEY,
                                             User_ID INT,
@@ -75,7 +67,6 @@ CREATE TABLE IF NOT EXISTS CHAT_SESSION (
                                             FOREIGN KEY (User_ID) REFERENCES USER(User_ID)
 );
 
--- Chat message table
 CREATE TABLE IF NOT EXISTS CHAT_MESSAGE (
                                             Message_ID INT AUTO_INCREMENT PRIMARY KEY,
                                             Session_ID INT,
@@ -85,7 +76,6 @@ CREATE TABLE IF NOT EXISTS CHAT_MESSAGE (
                                             FOREIGN KEY (Session_ID) REFERENCES CHAT_SESSION(Session_ID)
 );
 
--- Security audit table
 CREATE TABLE IF NOT EXISTS SECURITY_AUDIT (
                                               Audit_ID INT AUTO_INCREMENT PRIMARY KEY,
                                               Type VARCHAR(255),
@@ -94,7 +84,6 @@ CREATE TABLE IF NOT EXISTS SECURITY_AUDIT (
                                               Result VARCHAR(255)
 );
 
--- Analysis report table
 CREATE TABLE IF NOT EXISTS ANALYSIS_REPORT (
                                                Report_ID INT AUTO_INCREMENT PRIMARY KEY,
                                                Report_Type VARCHAR(255),
