@@ -1,15 +1,15 @@
 version: '3.8'
+
 services:
   db:
-    image:  mysql:latest
-    container_name: mysql_container
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mds_db
+    image: mysql:latest
+    container_name: mds_container
     ports:
       - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_mds
+      MYSQL_USER: mds_user
+      MYSQL_PASSWORD: root
     volumes:
-      - db-data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-volumes:
-  db-data:
+      - ./mds.sql:/docker-entrypoint-initdb.d/mds.sql

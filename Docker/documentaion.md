@@ -1,9 +1,9 @@
-## Crearea containerului
+## Crearea si rularea containerului
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 
-## Rularea containerului
+## Conectarea la baza de date de pe serverul MySQL
 ```bash
-docker exec -it mysql_container mysql -u root -p
+docker exec -it mds_container mysql -u root -p db_mds
 ```
