@@ -1,6 +1,6 @@
 package models;
 
-enum Role {
+public enum Role {
     doctor,
     patient
 }

@@ -1,6 +1,6 @@
 package models;
 
-class Office {
+public final class Office {
     private int office_id;
     private String name;
     private String address;

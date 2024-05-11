@@ -2,7 +2,7 @@ package models;
 
 import java.util.Date;
 
-public class Appointment {
+public final class Appointment {
     private final int appointment_id;
     private final int patient_id;
     private final int doctor_id;
