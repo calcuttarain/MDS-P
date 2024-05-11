@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS user (
 );
 
 CREATE TABLE IF NOT EXISTS patient (
-                                       patient_id INT,
+                                       patient_id INT PRIMARY KEY,
                                        medical_history TEXT,
                                        allergies TEXT,
                                        blood_type VARCHAR(255),
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS office (
 );
 
 CREATE TABLE IF NOT EXISTS doctor (
-                                      doctor_id INT,
+                                      doctor_id INT PRIMARY KEY,
                                       specialization VARCHAR(255),
                                       description TEXT,
                                       office_id INT,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS appointment (
                                            appointment_id INT AUTO_INCREMENT PRIMARY KEY,
                                            patient_id INT,
                                            doctor_id INT,
-                                           timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                                           appointment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
                                            status ENUM('scheduled', 'canceled', 'completed', 'rescheduled') NOT NULL,
                                            notes TEXT,
                                            FOREIGN KEY (patient_id) REFERENCES user(user_id),
@@ -91,3 +91,26 @@ CREATE TABLE IF NOT EXISTS analysis_report (
                                                summary TEXT,
                                                details TEXT
 );
+
+CREATE TRIGGER delete_doctor_user
+    AFTER DELETE ON doctor
+    FOR EACH ROW
+BEGIN
+    DELETE FROM user WHERE user_id = OLD.doctor_id;
+END;
+
+CREATE TRIGGER delete_patient_user
+    AFTER DELETE ON patient
+    FOR EACH ROW
+BEGIN
+    DELETE FROM user WHERE user_id = OLD.patient_id;
+END;
+
+CREATE TRIGGER update_office_id_doctor
+    AFTER DELETE ON office
+    FOR EACH ROW
+BEGIN
+    UPDATE doctor
+    SET office_id = NULL
+    WHERE office_id = OLD.office_id;
+END;
