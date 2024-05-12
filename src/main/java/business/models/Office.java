@@ -1,4 +1,4 @@
-package models;
+package business.models;
 
 public final class Office {
     private int office_id;

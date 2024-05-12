@@ -1,6 +1,4 @@
-package repos;
-
-import java.util.List;
+package persistance.repos;
 
 
 interface GenericRepo <T>{

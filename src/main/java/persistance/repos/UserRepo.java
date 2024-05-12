@@ -1,6 +1,6 @@
-package repos;
+package persistance.repos;
 
-import models.User;
+import business.models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

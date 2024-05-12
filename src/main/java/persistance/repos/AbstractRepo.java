@@ -1,4 +1,4 @@
-package repos;
+package persistance.repos;
 
 public interface AbstractRepo<T> {
     public abstract void AbstractAdd(T entity);//c

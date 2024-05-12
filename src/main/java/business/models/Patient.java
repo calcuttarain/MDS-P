@@ -1,4 +1,4 @@
-package models;
+package business.models;
 
 public final class Patient extends User {
     private String medical_history;

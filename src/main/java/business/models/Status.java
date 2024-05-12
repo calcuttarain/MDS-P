@@ -1,4 +1,4 @@
-package models;
+package business.models;
 
 public enum Status {
     scheduled,

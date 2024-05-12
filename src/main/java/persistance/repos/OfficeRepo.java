@@ -1,6 +1,6 @@
-package repos;
+package persistance.repos;
 
-import models.Office;
+import business.models.Office;
 
 import java.sql.*;
 

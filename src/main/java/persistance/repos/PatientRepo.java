@@ -1,6 +1,6 @@
-package repos;
+package persistance.repos;
 
-import models.Patient;
+import business.models.Patient;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

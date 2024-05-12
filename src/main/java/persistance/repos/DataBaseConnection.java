@@ -1,4 +1,4 @@
-package repos;
+package persistance.repos;
 
 import java.sql.*;
 

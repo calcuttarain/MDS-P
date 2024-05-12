@@ -1,4 +1,4 @@
-package models;
+package business.models;
 
 public final class Doctor extends User {
     private String specialization;

@@ -1,6 +1,6 @@
-package repos;
+package persistance.repos;
 
-import models.Appointment;
+import business.models.Appointment;
 
 import java.sql.*;
 
