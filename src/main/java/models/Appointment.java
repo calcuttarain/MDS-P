@@ -10,12 +10,16 @@ public final class Appointment {
     private Status status;
     private String notes;
 
-    public Appointment(int appointment_id, int patient_id, int doctor_id, Date appointment_date, Status status, String notes) {
+    public Appointment(int appointment_id, int patient_id, int doctor_id, Date appointment_date, String status, String notes) {
         this.appointment_id = appointment_id;
         this.patient_id = patient_id;
         this.doctor_id = doctor_id;
         this.appointment_date = appointment_date;
-        this.status = status;
+        try {
+            this.status = Status.valueOf(status);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
         this.notes = notes;
     }
 

@@ -6,9 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PatientRepo extends UserRepo implements GenericRepo<Patient>{
-    public PatientRepo() throws SQLException {}
-
+public class PatientRepo extends UserRepo implements GenericRepo<Patient> {
+    public PatientRepo() throws SQLException {
+    }
 
     @Override
     public void add(Patient patient) {
@@ -21,15 +21,14 @@ public class PatientRepo extends UserRepo implements GenericRepo<Patient>{
             statement.setString(3, patient.getAllergies());
             statement.setString(4, patient.getBloodType());
             statement.executeUpdate();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public Patient get(int patient_id)
-    {
-        String first_name =  "";
+    public Patient get(int patient_id) {
+        String first_name = "";
         String last_name = "";
         String email = "";
         String password_hash = "";
@@ -39,12 +38,12 @@ public class PatientRepo extends UserRepo implements GenericRepo<Patient>{
         String allergies = "";
         String blood_type = "";
 
-        String query = "SELECT u.first_name, u.last_name, u.email, u.password_hash, u.role, u.phone, " +
-                "p.medical_history, p.allergies, p.blood_type " +
-                "FROM user u " +
-                "LEFT JOIN patient p ON u.user_id = p.user_id " +
-                "WHERE u.user_id = ?";
-        try(PreparedStatement stmt = connection.prepareStatement(query)){
+        String query = "SELECT first_name, last_name, email, password_hash, role, phone, " +
+                "medical_history, allergies, blood_type " +
+                "FROM user " +
+                "LEFT JOIN patient ON user_id = user_id " +
+                "WHERE user_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, patient_id);
             ResultSet resultSet = stmt.executeQuery();
             first_name = resultSet.getString("first_name");
@@ -56,7 +55,7 @@ public class PatientRepo extends UserRepo implements GenericRepo<Patient>{
             medical_history = resultSet.getString("medical_history");
             allergies = resultSet.getString("allergies");
             blood_type = resultSet.getString("blood_type");
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -77,20 +76,18 @@ public class PatientRepo extends UserRepo implements GenericRepo<Patient>{
             statement.setString(2, patient.getAllergies());
             statement.setInt(3, patient.getUserId());
             statement.executeUpdate();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void delete(int patient_id) {
-        String query = "DELETE FROM patient WHERE patient_id = ?; " +
-                "DELETE FROM user WHERE user_id = ?;";
+        String query = "DELETE FROM patient WHERE patient_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, patient_id);
-            statement.setInt(2, patient_id);
             statement.executeUpdate();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
