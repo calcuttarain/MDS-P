@@ -4,6 +4,7 @@ module com.example.mdsp {
 
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires commons.validator;
 
     opens com.example.mdsp to javafx.fxml;
     exports com.example.mdsp;

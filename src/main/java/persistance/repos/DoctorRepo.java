@@ -13,10 +13,10 @@ public class DoctorRepo extends UserRepo implements GenericRepo<Doctor>{
     @Override
     public void add(Doctor doctor) {
         super.AbstractAdd(doctor);
-
+        int doctor_id = AbstractGetId(doctor.getEmail());
         String query = "INSERT INTO doctor (doctor_id, specialization, description, office_id) VALUES (?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, super.AbstractGetId(doctor.getEmail()));
+            statement.setInt(1, doctor_id);
             statement.setString(2, doctor.getSpecialization());
             statement.setString(3, doctor.getDescription());
             statement.setInt(4, doctor.getOfficeId());

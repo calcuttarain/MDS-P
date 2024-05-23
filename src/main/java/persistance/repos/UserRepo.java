@@ -35,13 +35,19 @@ public class UserRepo implements AbstractRepo<User>
     public int AbstractGetId(String email) {
         int user_id = -1;
         String query = "SELECT user_id FROM user WHERE email = ?";
+
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
-            user_id = resultSet.getInt("user_id");
+
+            if (resultSet.next()) {
+                user_id = resultSet.getInt("user_id");
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return user_id;
     }
 

@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS appointment (
                                            patient_id INT,
                                            doctor_id INT,
                                            appointment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-                                           status ENUM('scheduled', 'canceled', 'completed', 'rescheduled') NOT NULL,
+                                           status ENUM('scheduled', 'canceled', 'completed', 'rescheduled', 'confirmed', 'unconfirmed') NOT NULL,
                                            notes TEXT,
                                            FOREIGN KEY (patient_id) REFERENCES user(user_id),
                                            FOREIGN KEY (doctor_id) REFERENCES user(user_id)
