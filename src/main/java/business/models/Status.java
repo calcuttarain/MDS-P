@@ -4,5 +4,7 @@ public enum Status {
     scheduled,
     canceled,
     completed,
-    rescheduled
+    rescheduled,
+    confirmed,
+    unconfirmed
 }

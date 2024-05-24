@@ -3,6 +3,7 @@ module com.example.mdsp {
     requires javafx.fxml;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires commons.validator;
     requires com.google.gson;
     requires java.net.http;
 
