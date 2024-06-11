@@ -9,10 +9,18 @@ import java.sql.SQLException;
 
 public class UserRepo implements AbstractRepo<User>
 {
-    protected final Connection connection;
+    protected static Connection connection;
+    protected static UserRepo instance;
 
-    public UserRepo() throws SQLException {
+    protected UserRepo() throws SQLException {
         connection = DataBaseConnection.getConnection();
+    }
+
+    public static UserRepo getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new UserRepo();
+        }
+        return instance;
     }
 
     @Override

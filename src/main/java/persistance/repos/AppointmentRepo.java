@@ -5,12 +5,19 @@ import business.models.Appointment;
 import java.sql.*;
 
 public class AppointmentRepo implements GenericRepo<Appointment> {
-    protected final Connection connection;
+    private static Connection connection;
+    private static AppointmentRepo instance;
 
-    public AppointmentRepo() throws SQLException {
+    private AppointmentRepo() throws SQLException {
         connection = DataBaseConnection.getConnection();
     }
 
+    public static AppointmentRepo getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new AppointmentRepo();
+        }
+        return instance;
+    }
     @Override
     public void add(Appointment appointment) {
         String query = "INSERT INTO appointment (patient_id, doctor_id, appointment_date, status, notes) VALUES (?, ?, ?, ?, ?)";

@@ -1,6 +1,5 @@
 package business.services;
 
-import business.models.User;
 import persistance.repos.UserRepo;
 
 import java.sql.SQLException;

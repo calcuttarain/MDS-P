@@ -14,16 +14,13 @@ import java.util.Date;
 
 public class AppointmentService {
     private static AppointmentRepo appointment_repo;
-    public void requestAppointment(int patient_id, int doctor_id, String date_string, String notes)
-    {
+    public void requestAppointment(int patient_id, int doctor_id, String date_string, String notes) throws SQLException {
         try {
             appointment_repo = new AppointmentRepo();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy MM dd HH:mm");
             Date date = formatter.parse(date_string);
             Appointment appointment = new Appointment(-1, patient_id, doctor_id, date, "unconfirmed", notes);
             appointment_repo.add(appointment);
-        } catch (SQLException e) {
-            System.err.println(STR."Database error: \{e.getMessage()}");
         } catch (ParseException e) {
             System.err.println(STR."DateTime parse error: \{e.getMessage()}");
         }

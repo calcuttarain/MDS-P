@@ -5,10 +5,17 @@ import business.models.Office;
 import java.sql.*;
 
 public class OfficeRepo implements GenericRepo<Office> {
-    protected final Connection connection;
+    private static Connection connection;
+    private static OfficeRepo instance;
 
-    public OfficeRepo() throws SQLException {
+    private OfficeRepo() throws SQLException {
         connection = DataBaseConnection.getConnection();
+    }
+    public static OfficeRepo getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new OfficeRepo();
+        }
+        return instance;
     }
 
     @Override

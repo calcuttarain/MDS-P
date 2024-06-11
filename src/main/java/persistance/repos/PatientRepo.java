@@ -7,7 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PatientRepo extends UserRepo implements GenericRepo<Patient> {
-    public PatientRepo() throws SQLException {
+    private static PatientRepo instance;
+    private PatientRepo() throws SQLException {}
+
+    public static PatientRepo getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new PatientRepo();
+        }
+        return instance;
     }
 
     @Override
