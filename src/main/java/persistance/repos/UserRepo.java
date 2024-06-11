@@ -1,5 +1,6 @@
 package persistance.repos;
 
+import business.models.Role;
 import business.models.User;
 import exceptions.ElementNotFoundException;
 import exceptions.EmailAlreadyExistsException;
@@ -99,6 +100,17 @@ public class UserRepo implements AbstractRepo<User>
         }
     }
 
+    @Override
+    public void AbstractDelete(int id) {
+        String query = "DELETE FROM user WHERE user_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void AbstractIdVerification(String email) throws EmailAlreadyExistsException {
         String query = "SELECT user_id FROM user WHERE email = ?";
 
@@ -111,5 +123,23 @@ public class UserRepo implements AbstractRepo<User>
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Role AbstractGetRole(int user_id) throws ElementNotFoundException {
+        String query = "SELECT role FROM user WHERE user_id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, user_id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Role role = Role.valueOf(resultSet.getString("role"));
+                return role;
+            }
+            else
+                throw new ElementNotFoundException("User ID " + user_id + " inexistent.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

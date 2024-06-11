@@ -47,11 +47,11 @@ public class PatientRepo extends UserRepo implements GenericRepo<Patient> {
         String allergies = "";
         String blood_type = "";
 
-        String query = "SELECT u.first_name, u.last_name, u.email, u.password_hash, u.role, u.phone, " +
-                "p.medical_history, p.allergies, p.blood_type " +
-                "FROM user u " +
-                "LEFT JOIN patient p ON p.user_id = u.id " +
-                "WHERE u.id = ?";
+        String query = "SELECT first_name, last_name, email, password_hash, role, phone, " +
+                "medical_history, allergies, blood_type " +
+                "FROM user " +
+                "LEFT JOIN patient ON user_id = patient_id " +
+                "WHERE user_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, patient_id);
             ResultSet resultSet = stmt.executeQuery();
@@ -94,6 +94,7 @@ public class PatientRepo extends UserRepo implements GenericRepo<Patient> {
 
     @Override
     public void delete(int patient_id) {
+        AbstractDelete(patient_id);
         String query = "DELETE FROM patient WHERE patient_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, patient_id);

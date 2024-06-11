@@ -4,6 +4,8 @@ import business.models.Appointment;
 import exceptions.ElementNotFoundException;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppointmentRepo implements GenericRepo<Appointment> {
     private static Connection connection;
@@ -63,10 +65,9 @@ public class AppointmentRepo implements GenericRepo<Appointment> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return new Appointment(appointment_id, patient_id, doctor_id, appointment_date, status, notes);
+        String statusUpperCase = status.toUpperCase();
+        return new Appointment(appointment_id, patient_id, doctor_id, appointment_date, statusUpperCase, notes);
     }
-
 
     @Override
     public void update(Appointment appointment) {
@@ -96,4 +97,51 @@ public class AppointmentRepo implements GenericRepo<Appointment> {
             e.printStackTrace();
         }
     }
+
+    public List<Appointment> getAppointmentsByDoctorId(int doctor_id) {
+        List<Appointment> appointments = new ArrayList<>();
+        String query = "SELECT appointment_id, patient_id, appointment_date, status, notes " +
+                "FROM appointment WHERE doctor_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, doctor_id);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                int appointment_id = resultSet.getInt("appointment_id");
+                int patient_id = resultSet.getInt("patient_id");
+                Timestamp date = resultSet.getTimestamp("appointment_date");
+                Date appointment_date = new Date(date.getTime());
+                String status = resultSet.getString("status");
+                String notes = resultSet.getString("notes");
+                String statusUpperCase = status.toUpperCase();
+                appointments.add(new Appointment(appointment_id, patient_id, doctor_id, appointment_date, statusUpperCase, notes));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointments;
+    }
+
+    public List<Appointment> getAppointmentsByPatientId(int patient_id) {
+        List<Appointment> appointments = new ArrayList<>();
+        String query = "SELECT appointment_id, doctor_id, appointment_date, status, notes " +
+                "FROM appointment WHERE patient_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, patient_id);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                int appointment_id = resultSet.getInt("appointment_id");
+                int doctor_id = resultSet.getInt("doctor_id");
+                Timestamp date = resultSet.getTimestamp("appointment_date");
+                Date appointment_date = new Date(date.getTime());
+                String status = resultSet.getString("status");
+                String notes = resultSet.getString("notes");
+                String statusUpperCase = status.toUpperCase();
+                appointments.add(new Appointment(appointment_id, patient_id, doctor_id, appointment_date, statusUpperCase, notes));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointments;
+    }
+
 }

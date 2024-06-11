@@ -41,17 +41,16 @@ public class DoctorRepo extends UserRepo implements GenericRepo<Doctor>{
         String last_name = "";
         String email = "";
         String password_hash = "";
-        String role = "";
         String phone = "";
         String specialization = "";
         String description = "";
         int office_id = -1;
 
-        String query = "SELECT u.first_name, u.last_name, u.email, u.password_hash, u.role, u.phone, " +
-                "d.specialization, d.description, d.office_id " +
-                "FROM user u " +
-                "LEFT JOIN doctor d ON u.id = d.user_id " +
-                "WHERE u.id = ?";
+        String query = "SELECT first_name, last_name, email, password_hash, phone, " +
+                "specialization, description, office_id " +
+                "FROM user " +
+                "LEFT JOIN doctor ON doctor_id = user_id " +
+                "WHERE user_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, doctor_id);
             ResultSet resultSet = stmt.executeQuery();
@@ -60,7 +59,6 @@ public class DoctorRepo extends UserRepo implements GenericRepo<Doctor>{
                 last_name = resultSet.getString("last_name");
                 email = resultSet.getString("email");
                 password_hash = resultSet.getString("password_hash");
-                role = resultSet.getString("role");
                 phone = resultSet.getString("phone");
                 specialization = resultSet.getString("specialization");
                 description = resultSet.getString("description");
@@ -97,6 +95,7 @@ public class DoctorRepo extends UserRepo implements GenericRepo<Doctor>{
 
     @Override
     public void delete(int doctor_id) {
+        AbstractDelete(doctor_id);
         String query = "DELETE FROM doctor WHERE doctor_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, doctor_id);
