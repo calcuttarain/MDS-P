@@ -1,2 +1,7 @@
-package business.services;public class PatientService {
+package business.services;
+
+public class PatientService {
+    private PatientService() {}
+
+
 }

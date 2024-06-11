@@ -1,6 +1,8 @@
 package persistance.repos;
 
 import business.models.Doctor;
+import business.models.Role;
+import exceptions.ElementNotFoundException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +36,7 @@ public class DoctorRepo extends UserRepo implements GenericRepo<Doctor>{
     }
 
     @Override
-    public Doctor get(int doctor_id) {
+    public Doctor get(int doctor_id) throws ElementNotFoundException {
         String first_name = "";
         String last_name = "";
         String email = "";
@@ -45,31 +47,35 @@ public class DoctorRepo extends UserRepo implements GenericRepo<Doctor>{
         String description = "";
         int office_id = -1;
 
-        String query = "SELECT first_name, last_name, email, password_hash, role, phone, " +
-                "specialization, description, office_id " +
-                "FROM user " +
-                "LEFT JOIN doctor ON user_id = doctor_id " +
-                "WHERE user_id = ?";
+        String query = "SELECT u.first_name, u.last_name, u.email, u.password_hash, u.role, u.phone, " +
+                "d.specialization, d.description, d.office_id " +
+                "FROM user u " +
+                "LEFT JOIN doctor d ON u.id = d.user_id " +
+                "WHERE u.id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, doctor_id);
             ResultSet resultSet = stmt.executeQuery();
-            first_name = resultSet.getString("first_name");
-            last_name = resultSet.getString("last_name");
-            email = resultSet.getString("email");
-            password_hash = resultSet.getString("password_hash");
-            role = resultSet.getString("role");
-            phone = resultSet.getString("phone");
-            specialization = resultSet.getString("specialization");
-            description = resultSet.getString("description");
-            office_id = resultSet.getInt("office_id");
+            if (resultSet.next()) {
+                first_name = resultSet.getString("first_name");
+                last_name = resultSet.getString("last_name");
+                email = resultSet.getString("email");
+                password_hash = resultSet.getString("password_hash");
+                role = resultSet.getString("role");
+                phone = resultSet.getString("phone");
+                specialization = resultSet.getString("specialization");
+                description = resultSet.getString("description");
+                office_id = resultSet.getInt("office_id");
+            }
+            else {
+                throw new ElementNotFoundException("Doctor ID " + doctor_id + " not found.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        Doctor doctor = new Doctor(doctor_id, first_name, last_name, email, password_hash, role, phone, specialization, description, office_id);
-
-        return doctor;
+        return new Doctor(doctor_id, first_name, last_name, email, password_hash, Role.DOCTOR, phone, specialization, description, office_id);
     }
+
 
     @Override
     public void update(Doctor doctor) {

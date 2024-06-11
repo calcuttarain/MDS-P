@@ -10,18 +10,26 @@ public abstract class User {
     protected String phone;
 
     //construct
-    public User(int user_id, String first_name, String last_name, String email, String password_hash, String role, String phone) {
+    public User(int user_id, String first_name, String last_name, String email, String password_hash, Role role, String phone) {
         this.user_id = user_id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.password_hash = password_hash;
-        if(role.equalsIgnoreCase("patient"))
-            this.role = Role.patient;
-        else if (role.equalsIgnoreCase("doctor"))
-            this.role = Role.doctor;
+        this.role = role;
         this.phone = phone;
     }
+
+    public User(String first_name, String last_name, String email, String password_hash, Role role, String phone) {
+        this.user_id = -1;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
+        this.password_hash = password_hash;
+        this.role = role;
+        this.phone = phone;
+    }
+
 
     //setters getters
     public int getUserId() {
@@ -45,6 +53,10 @@ public abstract class User {
     }
 
     public String getPassword_hash() { return password_hash; }
+
+    public void setPassword_hash(String password_hash) {
+        this.password_hash = password_hash;
+    }
 
     public String getPhone() {
         return phone;

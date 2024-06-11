@@ -5,8 +5,15 @@ public final class Doctor extends User {
     private String description;
     private int office_id;
 
-    public Doctor(int user_id, String first_name, String last_name, String email, String password_hash, String role, String phone, String specialization, String description, int office_id) {
+    public Doctor(int user_id, String first_name, String last_name, String email, String password_hash, Role role, String phone, String specialization, String description, int office_id) {
         super(user_id, first_name, last_name, email, password_hash, role, phone);
+        this.specialization = specialization;
+        this.description = description;
+        this.office_id = office_id;
+    }
+
+    public Doctor(String first_name, String last_name, String email, String password_hash, Role role, String phone, String specialization, String description, int office_id) {
+        super(first_name, last_name, email, password_hash, role, phone);
         this.specialization = specialization;
         this.description = description;
         this.office_id = office_id;
@@ -39,7 +46,7 @@ public final class Doctor extends User {
 
     @Override
     public String getRole() {
-        return Role.doctor.toString();
+        return Role.DOCTOR.toString();
     }
 }
 

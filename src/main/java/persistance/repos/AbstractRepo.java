@@ -1,5 +1,7 @@
 package persistance.repos;
 
+import exceptions.ElementNotFoundException;
+
 public interface AbstractRepo<T> {
     public abstract void AbstractAdd(T entity);//c
 

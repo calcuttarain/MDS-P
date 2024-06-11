@@ -1,6 +1,7 @@
 package persistance.repos;
 
 import business.models.Appointment;
+import exceptions.ElementNotFoundException;
 
 import java.sql.*;
 
@@ -35,7 +36,7 @@ public class AppointmentRepo implements GenericRepo<Appointment> {
     }
 
     @Override
-    public Appointment get(int appointment_id) {
+    public Appointment get(int appointment_id) throws ElementNotFoundException {
         int patient_id = -1;
         int doctor_id = -1;
         Date appointment_date = null;
@@ -48,21 +49,24 @@ public class AppointmentRepo implements GenericRepo<Appointment> {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, appointment_id);
             ResultSet resultSet = stmt.executeQuery();
-            patient_id = resultSet.getInt("patient_id");
-            doctor_id = resultSet.getInt("doctor_id");
-            Timestamp date = resultSet.getTimestamp("appointment_date");
-            appointment_date = new Date(date.getTime());
-            status = resultSet.getString("status");
-            notes = resultSet.getString("notes");
-
+            if (resultSet.next()) {
+                patient_id = resultSet.getInt("patient_id");
+                doctor_id = resultSet.getInt("doctor_id");
+                Timestamp date = resultSet.getTimestamp("appointment_date");
+                appointment_date = new Date(date.getTime());
+                status = resultSet.getString("status");
+                notes = resultSet.getString("notes");
+            }
+            else {
+                throw new ElementNotFoundException("Appointment ID " + appointment_id + " not found.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        Appointment appointment = new Appointment(appointment_id, patient_id, doctor_id, appointment_date, status, notes);
-
-        return appointment;
+        return new Appointment(appointment_id, patient_id, doctor_id, appointment_date, status, notes);
     }
+
 
     @Override
     public void update(Appointment appointment) {

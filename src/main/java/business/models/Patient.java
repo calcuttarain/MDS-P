@@ -5,8 +5,15 @@ public final class Patient extends User {
     private String allergies;
     private String blood_type;
 
-    public Patient(int user_id, String first_name, String last_name, String email, String password_hash, String role, String phone, String medical_history, String allergies, String blood_type) {
+    public Patient(int user_id, String first_name, String last_name, String email, String password_hash, Role role, String phone, String medical_history, String allergies, String blood_type) {
         super(user_id, first_name, last_name, email, password_hash, role, phone);
+        this.medical_history = medical_history;
+        this.allergies = allergies;
+        this.blood_type = blood_type;
+    }
+
+    public Patient(String first_name, String last_name, String email, String password_hash, Role role, String phone, String medical_history, String allergies, String blood_type) {
+        super(first_name, last_name, email, password_hash, role, phone);
         this.medical_history = medical_history;
         this.allergies = allergies;
         this.blood_type = blood_type;
@@ -39,6 +46,6 @@ public final class Patient extends User {
 
     @Override
     public String getRole() {
-        return Role.patient.toString();
+        return Role.PATIENT.toString();
     }
 }

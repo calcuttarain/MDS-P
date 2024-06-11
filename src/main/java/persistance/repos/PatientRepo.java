@@ -1,6 +1,8 @@
 package persistance.repos;
 
 import business.models.Patient;
+import business.models.Role;
+import exceptions.ElementNotFoundException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +36,7 @@ public class PatientRepo extends UserRepo implements GenericRepo<Patient> {
     }
 
     @Override
-    public Patient get(int patient_id) {
+    public Patient get(int patient_id) throws ElementNotFoundException {
         String first_name = "";
         String last_name = "";
         String email = "";
@@ -45,30 +47,32 @@ public class PatientRepo extends UserRepo implements GenericRepo<Patient> {
         String allergies = "";
         String blood_type = "";
 
-        String query = "SELECT first_name, last_name, email, password_hash, role, phone, " +
-                "medical_history, allergies, blood_type " +
-                "FROM user " +
-                "LEFT JOIN patient ON user_id = user_id " +
-                "WHERE user_id = ?";
+        String query = "SELECT u.first_name, u.last_name, u.email, u.password_hash, u.role, u.phone, " +
+                "p.medical_history, p.allergies, p.blood_type " +
+                "FROM user u " +
+                "LEFT JOIN patient p ON p.user_id = u.id " +
+                "WHERE u.id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, patient_id);
             ResultSet resultSet = stmt.executeQuery();
-            first_name = resultSet.getString("first_name");
-            last_name = resultSet.getString("last_name");
-            email = resultSet.getString("email");
-            password_hash = resultSet.getString("password_hash");
-            role = resultSet.getString("role");
-            phone = resultSet.getString("phone");
-            medical_history = resultSet.getString("medical_history");
-            allergies = resultSet.getString("allergies");
-            blood_type = resultSet.getString("blood_type");
+            if (resultSet.next()) {
+                first_name = resultSet.getString("first_name");
+                last_name = resultSet.getString("last_name");
+                email = resultSet.getString("email");
+                password_hash = resultSet.getString("password_hash");
+                role = resultSet.getString("role");
+                phone = resultSet.getString("phone");
+                medical_history = resultSet.getString("medical_history");
+                allergies = resultSet.getString("allergies");
+                blood_type = resultSet.getString("blood_type");
+            }
+            else {
+                throw new ElementNotFoundException("Pacient ID " + patient_id + " not found.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        Patient patient = new Patient(patient_id, first_name, last_name, email, password_hash, role, phone, medical_history, allergies, blood_type);
-
-        return patient;
+        return new Patient(patient_id, first_name, last_name, email, password_hash, Role.PATIENT , phone, medical_history, allergies, blood_type);
     }
 
     @Override

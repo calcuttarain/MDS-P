@@ -1,6 +1,7 @@
 package persistance.repos;
 
 import business.models.Office;
+import exceptions.ElementNotFoundException;
 
 import java.sql.*;
 
@@ -33,7 +34,7 @@ public class OfficeRepo implements GenericRepo<Office> {
     }
 
     @Override
-    public Office get(int office_id) {
+    public Office get(int office_id) throws ElementNotFoundException {
         String name = "";
         String address = "";
         String phone = "";
@@ -45,18 +46,22 @@ public class OfficeRepo implements GenericRepo<Office> {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, office_id);
             ResultSet resultSet = stmt.executeQuery();
-            name = resultSet.getString("name");
-            address = resultSet.getString("address");
-            phone = resultSet.getString("phone");
-            email = resultSet.getString("notes");
+            if (resultSet.next()) {
+                name = resultSet.getString("name");
+                address = resultSet.getString("address");
+                phone = resultSet.getString("phone");
+                email = resultSet.getString("email");
+            }
+            else {
+                throw new ElementNotFoundException("Office ID " + office_id + " not found.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        Office office = new Office(office_id, name, address, phone, email);
-
-        return office;
+        return new Office(office_id, name, address, phone, email);
     }
+
 
     @Override
     public void update(Office office) {

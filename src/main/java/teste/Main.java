@@ -1,45 +1,28 @@
 package teste;
+import java.sql.SQLException;
 import java.util.Scanner;
+
+import business.services.LoginService;
 import business.services.RegisterService;
+import exceptions.ElementNotFoundException;
+import exceptions.WrongPasswordException;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter your first name: ");
-        String firstName = scanner.nextLine();
-
-        System.out.print("Enter your last name: ");
-        String lastName = scanner.nextLine();
-
-        System.out.print("Enter your email: ");
-        String email = scanner.nextLine();
-
-        System.out.print("Enter your password: ");
-        String password = scanner.nextLine();
-
-        System.out.print("Enter your phone number: ");
-        String phone = scanner.nextLine();
-
-//        System.out.print("Enter your med history: ");
-//        String history = scanner.nextLine();
-//
-//        System.out.print("Enter your allergies: ");
-//        String alerg = scanner.nextLine();
-//
-//        System.out.print("Enter your blood type: ");
-//        String bt = scanner.nextLine();
-
-        System.out.print("Enter your specialization: ");
-        String spec = scanner.nextLine();
-
-        System.out.print("Enter your description: ");
-        String desc = scanner.nextLine();
-
-        System.out.print("Enter your office: ");
-        int of = Integer.parseInt(scanner.nextLine());
-
-        RegisterService.createDoctorAccount(firstName, lastName, email, password, phone, spec, desc, of);
+//        try {
+//            RegisterService.createPacientAccount("Gigi", "Petrica", "gigi@gmail.ro", "gigi123", "09778990", "prost", "prosti", "a5");
+//        } catch (SQLException e) {
+//            System.out.println("Nu exista conexiune la baza de date");
+//        }
+        try {
+            System.out.println(LoginService.authenticate("gigi@gmail.ro", "gigi1234"));
+        } catch (SQLException e) {
+            System.out.println("Nu exista conexiune la baza de date");
+        } catch (ElementNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (WrongPasswordException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
 

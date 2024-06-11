@@ -1,5 +1,4 @@
 package business.services;
-
 import business.models.Doctor;
 import business.models.Patient;
 import business.models.Role;
@@ -8,22 +7,19 @@ import persistance.repos.PatientRepo;
 
 import java.sql.SQLException;
 
-public class RegisterService {
-    private static PatientRepo patient_repo;
-    private static DoctorRepo doctor_repo;
-    public static void createPatientAccount(String first_name, String last_name, String email, String password, String phone, String medical_history, String allergies, String blood_type) throws SQLException {
-        patient_repo = new PatientRepo();
-        String password_hash = InputUtils.hashPassword(password);
-        Patient patient = new Patient(-1, first_name, last_name, email, password_hash, "patient", phone, medical_history, allergies, blood_type);
-        patient_repo.add(patient);
+public final class RegisterService {
+    private RegisterService() {}
+
+    public static void createPacientAccount(String first_name, String last_name, String email, String password, String phone, String medical_history, String allergies, String blood_type) throws SQLException {
+        String hashedPassword = InputUtils.hashPassword(password);
+        Patient patient = new Patient(first_name, last_name, email, hashedPassword, Role.PATIENT, phone, medical_history, allergies, blood_type);
+        PatientRepo repo = PatientRepo.getInstance();
+        repo.add(patient);
     }
-
-    public static void createDoctorAccount(String first_name, String last_name, String email, String password, String phone, String specialization, String description, int office_id) throws SQLException {
-        doctor_repo = new DoctorRepo();
-        String password_hash = InputUtils.hashPassword(password);
-        Doctor doctor = new Doctor(-1, first_name, last_name, email, password_hash, "doctor", phone, specialization, description, office_id);
-        doctor_repo.add(doctor);
+        public static void createDoctorAccount(String first_name, String last_name, String email, String password, String phone, String specialization, String description, int office_id) throws SQLException {
+        String hashed_password = InputUtils.hashPassword(password);
+        Doctor doctor = new Doctor(first_name, last_name, email, hashed_password, Role.DOCTOR, phone, specialization, description, office_id);
+        DoctorRepo repo = DoctorRepo.getInstance();
+        repo.add(doctor);
     }
-
-
 }

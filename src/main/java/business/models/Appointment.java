@@ -23,6 +23,19 @@ public final class Appointment {
         this.notes = notes;
     }
 
+    public Appointment(int patient_id, int doctor_id, Date appointment_date, String status, String notes) {
+        this.appointment_id = -1;
+        this.patient_id = patient_id;
+        this.doctor_id = doctor_id;
+        this.appointment_date = appointment_date;
+        try {
+            this.status = Status.valueOf(status);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        this.notes = notes;
+    }
+
     public int getAppointmentId() {
         return appointment_id;
     }

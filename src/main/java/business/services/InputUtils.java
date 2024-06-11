@@ -7,6 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class InputUtils {
+    private InputUtils() {}
     public static boolean isValidEmail(String email) {
         EmailValidator emailValidator = EmailValidator.getInstance();
         return emailValidator.isValid(email);
