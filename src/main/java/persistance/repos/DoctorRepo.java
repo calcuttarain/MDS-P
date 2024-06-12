@@ -7,6 +7,8 @@ import exceptions.ElementNotFoundException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DoctorRepo extends UserRepo implements GenericRepo<Doctor>{
     private static DoctorRepo instance;
@@ -103,5 +105,35 @@ public class DoctorRepo extends UserRepo implements GenericRepo<Doctor>{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Doctor> getDoctorsBySpecialization(String specialization) {
+        List<Doctor> doctors = new ArrayList<>();
+
+        String query = "SELECT user_id, first_name, last_name, email, password_hash, phone, description, office_id " +
+                "FROM user " +
+                "LEFT JOIN doctor ON doctor_id = user_id " +
+                "WHERE specialization = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, specialization);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                int doctor_id = resultSet.getInt("user_id");
+                String first_name = resultSet.getString("first_name");
+                String last_name = resultSet.getString("last_name");
+                String email = resultSet.getString("email");
+                String password_hash = resultSet.getString("password_hash");
+                String phone = resultSet.getString("phone");
+                String description = resultSet.getString("description");
+                int office_id = resultSet.getInt("office_id");
+
+                Doctor doctor = new Doctor(doctor_id, first_name, last_name, email, password_hash, Role.DOCTOR, phone, specialization, description, office_id);
+                doctors.add(doctor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return doctors;
     }
 }

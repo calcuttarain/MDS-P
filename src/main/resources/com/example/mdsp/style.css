@@ -1,0 +1,7 @@
+.message {
+    -fx-background-color: #dcdcdc; /* culoare de fundal */
+    -fx-border-color: #b0b0b0; /* culoare bordură */
+    -fx-border-radius: 10; /* raza de rotunjire a colțurilor */
+    -fx-padding: 10; /* spațiu interior */
+    -fx-font-size: 14px; /* dimensiunea fontului */
+}

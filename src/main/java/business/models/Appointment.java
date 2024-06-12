@@ -74,7 +74,14 @@ public final class Appointment {
 
     @Override
     public String toString() {
-        return STR."Appointment{appointment_id=\{appointment_id}, patient_id=\{patient_id}, doctor_id=\{doctor_id}, appointment_date=\{appointment_date}, status=\{status}, notes='\{notes}\{'\''}\{'}'}";
+        return "Appointment{" +
+                "appointment_id=" + appointment_id +
+                ", patient_id=" + patient_id +
+                ", doctor_id=" + doctor_id +
+                ", appointment_date=" + appointment_date +
+                ", status=" + status +
+                ", notes='" + notes + '\'' +
+                '}';
     }
 
 }

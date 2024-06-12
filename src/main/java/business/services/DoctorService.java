@@ -10,6 +10,7 @@ import persistance.repos.PatientRepo;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DoctorService {
     private DoctorService() {}
@@ -25,6 +26,12 @@ public class DoctorService {
         repo = DoctorRepo.getInstance();
         doctor.setDescription(new_description);
         repo.update(doctor);
+    }
+
+    public static List<Doctor> getDoctorsBySpecialization(String specialization) throws SQLException {
+        repo = DoctorRepo.getInstance();
+        List<Doctor> doctors = repo.getDoctorsBySpecialization(specialization);
+        return doctors;
     }
 
 }

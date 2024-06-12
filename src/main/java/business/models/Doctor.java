@@ -48,5 +48,19 @@ public final class Doctor extends User {
     public String getRole() {
         return Role.DOCTOR.toString();
     }
+
+    @Override
+    public String toString() {
+        return "Doctor\n" +
+                "->first_name: " + first_name + '\n' +
+                "->last_name: " + last_name + '\n' +
+                "->email: " + email + '\n' +
+                "->password_hash: " + password_hash + '\n' +
+                "->role: " + role + '\n' +
+                "->phone: " + phone + '\n' +
+                "->specialization: " + specialization + '\n' +
+                "->description: " + description + '\n';
+    }
+
 }
 

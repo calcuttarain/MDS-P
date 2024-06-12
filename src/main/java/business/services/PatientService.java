@@ -30,8 +30,8 @@ public class PatientService {
 
     public static void updateAllergies(Patient patient, String new_allergies) throws SQLException {
         repo = PatientRepo.getInstance();
-
         patient.setAllergies(patient.getAllergies() + ' ' + new_allergies);
         repo.update(patient);
     }
+
 }

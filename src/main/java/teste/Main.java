@@ -1,9 +1,11 @@
 package teste;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import business.models.Appointment;
+import business.models.Doctor;
 import business.models.Patient;
 import business.models.User;
 import business.services.*;
@@ -31,8 +33,22 @@ public class Main {
 //            AppointmentService.requestAppointment(18, 23, "2024 10 12 11:15", "Reevaluare dupa tratament");
 //            AppointmentService.requestAppointment(19, 24, "2024 11 22 13:45", "Consultatie pentru investigatii suplimentare");
 //            AppointmentService.requestAppointment(16, 22, "2024 12 01 15:00", "Verificare dupa operatie");
-            ArrayList<Appointment> appointments = AppointmentService.getPacientAppointments(16);
-            System.out.println(appointments.toString());
+
+//            ArrayList<Appointment> appointments = AppointmentService.getPacientAppointments(16);
+//            AppointmentService.requestRescheduleAppointment(appointments.get(1), "2024 08 06 12:30");
+//            System.out.println(appointments.toString());
+//            AppointmentService.approveRescheduleAppointment(appointments.get(1));
+
+//        RegisterService.createDoctorAccount("Ana", "Popa", "ana.popaaa@example.com", "parola123", "0722000000", "Pediatrie", "Specializat în îngrijirea copiilor și adolescenților.", 8);
+//
+//
+//        RegisterService.createDoctorAccount("Mihai", "Georgescu", "mihaiii.georgescu@example.com", "parola123", "0722000001", "Pediatrie", "Specializat în îngrijirea copiilor și adolescenților.", 6);
+//
+//
+//        RegisterService.createDoctorAccount("Elena", "Constantinescu", "elenaaa.constantinescu@example.com", "parola123", "0722000002", "Pediatrie", "Specializat în îngrijirea copiilor și adolescenților.", 10);
+
+            List<Doctor> doctors = DoctorService.getDoctorsBySpecialization("Pediatrie");
+        System.out.println(doctors.toString());
 
         } catch (SQLException e) {
             System.out.println("Nu exista conexiune la baza de date");
