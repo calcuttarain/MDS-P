@@ -1,30 +1,23 @@
-package persistance.repos;
+package com.example.mdsp.repos;
 
-import business.models.Role;
-import business.models.User;
-import exceptions.ElementNotFoundException;
-import exceptions.EmailAlreadyExistsException;
+import com.example.mdsp.models.Role;
+import com.example.mdsp.models.User;
+import com.example.mdsp.exceptions.ElementNotFoundException;
+import com.example.mdsp.exceptions.EmailAlreadyExistsException;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Locale;
-
+@Component
 public class UserRepo implements AbstractRepo<User>
 {
     protected static Connection connection;
-    protected static UserRepo instance;
 
-    protected UserRepo() throws SQLException {
+    public UserRepo() {
         connection = DataBaseConnection.getConnection();
-    }
-
-    public static UserRepo getInstance() throws SQLException {
-        if (instance == null) {
-            instance = new UserRepo();
-        }
-        return instance;
     }
 
     @Override
@@ -132,8 +125,11 @@ public class UserRepo implements AbstractRepo<User>
             statement.setInt(1, user_id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                Role role = Role.valueOf(resultSet.getString("role"));
-                return role;
+                String role = resultSet.getString("role");
+                if(role.equals("patient"))
+                    return Role.PATIENT;
+                else
+                    return Role.DOCTOR;
             }
             else
                 throw new ElementNotFoundException("User ID " + user_id + " inexistent.");

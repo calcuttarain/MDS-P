@@ -1,25 +1,19 @@
-package persistance.repos;
+package com.example.mdsp.repos;
 
-import business.models.Appointment;
-import exceptions.ElementNotFoundException;
+import com.example.mdsp.models.Appointment;
+import com.example.mdsp.exceptions.ElementNotFoundException;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class AppointmentRepo implements GenericRepo<Appointment> {
     private static Connection connection;
-    private static AppointmentRepo instance;
 
-    private AppointmentRepo() throws SQLException {
+    public AppointmentRepo() {
         connection = DataBaseConnection.getConnection();
-    }
-
-    public static AppointmentRepo getInstance() throws SQLException {
-        if (instance == null) {
-            instance = new AppointmentRepo();
-        }
-        return instance;
     }
     @Override
     public void add(Appointment appointment) {

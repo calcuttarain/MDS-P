@@ -1,17 +1,10 @@
 package teste;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-import business.models.Appointment;
-import business.models.Doctor;
-import business.models.Patient;
-import business.models.User;
-import business.services.*;
-import exceptions.ElementNotFoundException;
-import exceptions.EmailAlreadyExistsException;
-import exceptions.WrongPasswordException;
+import com.example.mdsp.models.Doctor;
+import com.example.mdsp.services.*;
+import com.example.mdsp.services.DoctorService;
 
 public class Main {
     public static void main(String[] args) {

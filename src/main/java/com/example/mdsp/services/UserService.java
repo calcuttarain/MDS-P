@@ -1,40 +1,36 @@
-package com.example.mdsp.business.services;
+package com.example.mdsp.services;
 
-import com.example.mdsp.business.models.Role;
-import com.example.mdsp.business.models.User;
+import com.example.mdsp.models.Role;
+import com.example.mdsp.models.User;
 import com.example.mdsp.exceptions.ElementNotFoundException;
 import com.example.mdsp.exceptions.EmailAlreadyExistsException;
 import com.example.mdsp.repos.UserRepo;
+import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
+@Service
+public class UserService {
+    private static UserRepo repo = new UserRepo();
 
-public abstract class UserService {
-    private static UserRepo repo;
+    public UserService() {}
 
-    private UserService() {}
-
-    public static Role getRole(int user_id) throws ElementNotFoundException, SQLException {
-        repo = UserRepo.getInstance();
+    public static Role getRole(int user_id) throws ElementNotFoundException {
         Role role = repo.AbstractGetRole(user_id);
         return role;
     }
 
-    public static void changePassword(User user, String new_password) throws SQLException {
+    public static void changePassword(User user, String new_password){
         String new_hashed_password = InputUtils.hashPassword(new_password);
         user.setPassword_hash(new_hashed_password);
-        repo = UserRepo.getInstance();
         repo.AbstractUpdate(user);
     }
 
-    public static void changeEmail(User user, String new_email) throws SQLException, EmailAlreadyExistsException {
-        repo = UserRepo.getInstance();
+    public static void changeEmail(User user, String new_email) throws EmailAlreadyExistsException {
         repo.AbstractIdVerification(new_email);
         user.setEmail(new_email);
         repo.AbstractUpdate(user);
     }
 
-    public static void changePhone(User user, String new_phone) throws SQLException {
-        repo = UserRepo.getInstance();
+    public static void changePhone(User user, String new_phone){
         user.setPhone(new_phone);
         repo.AbstractUpdate(user);
     }

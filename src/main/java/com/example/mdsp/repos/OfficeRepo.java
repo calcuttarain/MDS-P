@@ -1,22 +1,17 @@
-package persistance.repos;
+package com.example.mdsp.repos;
 
-import business.models.Office;
-import exceptions.ElementNotFoundException;
+import com.example.mdsp.models.Office;
+import com.example.mdsp.exceptions.ElementNotFoundException;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
-
+@Component
 public class OfficeRepo implements GenericRepo<Office> {
     private static Connection connection;
-    private static OfficeRepo instance;
 
-    private OfficeRepo() throws SQLException {
+    public OfficeRepo() {
         connection = DataBaseConnection.getConnection();
-    }
-    public static OfficeRepo getInstance() throws SQLException {
-        if (instance == null) {
-            instance = new OfficeRepo();
-        }
-        return instance;
     }
 
     @Override

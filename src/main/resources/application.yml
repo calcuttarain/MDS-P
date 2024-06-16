@@ -1,0 +1,12 @@
+server:
+  port: 8081
+  tomcat:
+    socket-options:
+      soLinger: -1  # Disable SO_LINGER option
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_mds
+    username: mds_user
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver

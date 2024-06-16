@@ -1,4 +1,4 @@
-package com.example.mdsp.business.models;
+package com.example.mdsp.models;
 
 public enum Role {
     DOCTOR("doctor"),

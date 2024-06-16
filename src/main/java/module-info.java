@@ -13,6 +13,7 @@ module com.example.mdsp {
     requires spring.context;
     requires spring.aop;
     requires spring.jdbc;
+    requires spring.data.jpa;
 
     // Export the packages that contain your application's classes
     exports com.example.mdsp;

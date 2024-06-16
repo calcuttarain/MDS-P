@@ -1,4 +1,4 @@
-package com.example.mdsp.business.services;
+package com.example.mdsp.services;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.RegexValidator;
@@ -7,7 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class InputUtils {
-    private InputUtils() {}
+    public InputUtils() {}
     public static boolean isValidEmail(String email) {
         EmailValidator emailValidator = EmailValidator.getInstance();
         return emailValidator.isValid(email);

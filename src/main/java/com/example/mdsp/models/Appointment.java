@@ -1,8 +1,11 @@
-package com.example.mdsp.business.models;
+package com.example.mdsp.models;
+
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.util.Date;
 
-public final class Appointment {
+@EntityScan
+public class Appointment {
     private final int appointment_id;
     private final int patient_id;
     private final int doctor_id;

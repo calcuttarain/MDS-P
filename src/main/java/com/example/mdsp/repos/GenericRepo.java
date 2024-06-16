@@ -1,9 +1,11 @@
-package persistance.repos;
+package com.example.mdsp.repos;
 
 
-import exceptions.ElementNotFoundException;
+import com.example.mdsp.exceptions.ElementNotFoundException;
+import org.springframework.context.annotation.ComponentScan;
 
-interface GenericRepo <T>{
+@ComponentScan
+public interface GenericRepo <T>{
     public void add(T entity);//c
 
     public T get(int id) throws ElementNotFoundException;//r

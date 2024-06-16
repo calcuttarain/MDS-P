@@ -1,24 +1,18 @@
-package persistance.repos;
+package com.example.mdsp.repos;
 
-import business.models.Patient;
-import business.models.Role;
-import exceptions.ElementNotFoundException;
+import com.example.mdsp.models.Patient;
+import com.example.mdsp.models.Role;
+import com.example.mdsp.exceptions.ElementNotFoundException;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PatientRepo extends UserRepo implements GenericRepo<Patient> {
-    private static PatientRepo instance;
-    private PatientRepo() throws SQLException {}
-
-    public static PatientRepo getInstance() throws SQLException {
-        if (instance == null) {
-            instance = new PatientRepo();
-        }
-        return instance;
-    }
-
+@Component
+public class PatientRepo extends UserRepo implements GenericRepo<Patient>  {
+    public PatientRepo() {}
     @Override
     public void add(Patient patient) {
         super.AbstractAdd(patient);

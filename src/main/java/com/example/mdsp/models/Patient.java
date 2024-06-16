@@ -1,6 +1,8 @@
-package com.example.mdsp.business.models;
+package com.example.mdsp.models;
 
-public final class Patient extends User {
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+@EntityScan
+public class Patient extends User {
     private String medical_history;
     private String allergies;
     private String blood_type;

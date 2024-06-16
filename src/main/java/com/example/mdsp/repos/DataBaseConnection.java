@@ -1,8 +1,8 @@
-package persistance.repos;
+package com.example.mdsp.repos;
 
 import java.sql.*;
 
-class DataBaseConnection {
+public class DataBaseConnection {
     private static final String URL;
     private static final String USER;
     private static final String PASSWORD;
@@ -14,17 +14,30 @@ class DataBaseConnection {
         PASSWORD = "root";
     }
 
-    public static Connection getConnection() throws SQLException
+    public static Connection getConnection()
     {
-        if(connection == null || connection.isClosed())
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try {
+            if(connection == null || connection.isClosed()) {
+                try {
+                    connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         return connection;
     }
 
-    public static void stopConnection() throws SQLException
+    public static void stopConnection()
     {
-        if(!(connection == null || connection.isClosed()))
-            connection.close();
+        try {
+            if(!(connection == null || connection.isClosed()))
+                connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

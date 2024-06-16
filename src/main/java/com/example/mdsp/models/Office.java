@@ -1,6 +1,9 @@
-package com.example.mdsp.business.models;
+package com.example.mdsp.models;
 
-public final class Office {
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+@EntityScan
+public class Office {
     private int office_id;
     private String name;
     private String address;

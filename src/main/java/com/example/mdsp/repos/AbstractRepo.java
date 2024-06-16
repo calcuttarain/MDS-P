@@ -1,7 +1,8 @@
-package persistance.repos;
+package com.example.mdsp.repos;
 
-import exceptions.ElementNotFoundException;
+import org.springframework.context.annotation.ComponentScan;
 
+@ComponentScan
 public interface AbstractRepo<T> {
     public abstract void AbstractAdd(T entity);//c
 

@@ -1,4 +1,4 @@
-package exceptions;
+package com.example.mdsp.exceptions;
 
 public class WrongPasswordException extends Exception {
     public WrongPasswordException(String message) {
