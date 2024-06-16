@@ -24,4 +24,6 @@ module com.example.mdsp {
 
     // Open the packages that need to be accessed reflectively (by Spring for proxying)
     opens com.example.mdsp to spring.core, spring.beans, spring.context, spring.aop;
+    exports com.example.mdsp.controllers;
+    opens com.example.mdsp.controllers to spring.aop, spring.beans, spring.context, spring.core;
 }

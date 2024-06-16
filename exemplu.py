@@ -52,16 +52,16 @@ data_getDoctorsBySpecialization_example = {
 data_requestAppointment_example = {
     "function": "requestAppointment",
     "parameters": {
-        "patient_id": "0",
-        "doctor_id": "1",
-        "date_string": "2029 12 30 15:30",
-        "notes": "va fi interesant"
+        "patient_id": "16",
+        "specialization": "Pediatrie",
+        "date_string": "2026 12 30 15:30",
+        "notes": "va fi super"
     }
 }
 
 
 #posting example
-response = requests.post(url, json=data_register_patient_example)
+response = requests.post(url1, json=data_requestAppointment_example)
 
 if response.status_code == 200:
     response_data = response.json()

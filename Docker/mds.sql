@@ -91,10 +91,10 @@ CREATE TABLE IF NOT EXISTS analysis_report (
     summary TEXT,
     details TEXT
     );
--- INSERT INTO office (name, address, phone, email) VALUES
---                                                      ('Cabinet Medical Dr. Popescu', 'Str. Mihai Eminescu, nr. 45, Bucuresti', '021-123-4567', 'contact@drpopescu.ro'),
---                                                      ('Clinica Sanatatea Ta', 'Bd. Unirii, nr. 23, Cluj-Napoca', '0264-890-123', 'info@sanatateata.ro'),
---                                                      ('Policlinica Sf. Maria', 'Str. Alexandru Ioan Cuza, nr. 10, Iasi', '0232-567-890', 'contact@sfmaria.ro'),
---                                                      ('Centrul Medical MediPlus', 'Calea Victoriei, nr. 101, Timisoara', '0256-345-678', 'receptie@mediplus.ro'),
---                                                      ('Spitalul Municipal Ploiesti', 'Str. Libertatii, nr. 8, Ploiesti', '0244-123-456', 'spital@municipalpl.ro');
+INSERT INTO office (name, address, phone, email) VALUES
+                                                     ('Cabinet Medical Dr. Popescu', 'Str. Mihai Eminescu, nr. 45, Bucuresti', '021-123-4567', 'contact@drpopescu.ro'),
+                                                     ('Clinica Sanatatea Ta', 'Bd. Unirii, nr. 23, Cluj-Napoca', '0264-890-123', 'info@sanatateata.ro'),
+                                                     ('Policlinica Sf. Maria', 'Str. Alexandru Ioan Cuza, nr. 10, Iasi', '0232-567-890', 'contact@sfmaria.ro'),
+                                                     ('Centrul Medical MediPlus', 'Calea Victoriei, nr. 101, Timisoara', '0256-345-678', 'receptie@mediplus.ro'),
+                                                     ('Spitalul Municipal Ploiesti', 'Str. Libertatii, nr. 8, Ploiesti', '0244-123-456', 'spital@municipalpl.ro');
 

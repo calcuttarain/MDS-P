@@ -1,4 +1,4 @@
-package com.example.mdsp;
+package com.example.mdsp.controllers;
 
 import com.example.mdsp.exceptions.EmailAlreadyExistsException;
 import com.example.mdsp.models.*;

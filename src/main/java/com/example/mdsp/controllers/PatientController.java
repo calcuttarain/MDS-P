@@ -1,4 +1,4 @@
-package com.example.mdsp;
+package com.example.mdsp.controllers;
 
 import com.example.mdsp.exceptions.EmailAlreadyExistsException;
 import com.example.mdsp.exceptions.ElementNotFoundException;
@@ -71,10 +71,11 @@ public class PatientController {
                     response.put("doctors", doctors);
                     break;
                 case "requestAppointment":
+                    String specialization1 = (String) parameters.get("specialization");
                     String userIdStr4 = (String) parameters.get("patient_id");
+                    List<Doctor> doctors1 = DoctorService.getDoctorsBySpecialization(specialization1);
                     patient_id = Integer.parseInt(userIdStr4);
-                    String userIdStr5 = (String) parameters.get("doctor_id");
-                    int doctor_id = Integer.parseInt(userIdStr5);
+                    int doctor_id = doctors1.get(0).getUserId();
                     AppointmentService.requestAppointment(
                             patient_id,
                             doctor_id,
@@ -82,6 +83,7 @@ public class PatientController {
                             (String) parameters.get("notes")
                     );
                     response.put("result", "Appointment requested successfully.");
+                    response.put("doctor", doctors1.get(0));
                     break;
                 default:
                     response.put("error", "Unknown function: " + functionName);
