@@ -27,6 +27,8 @@ Urmărește un demo al aplicației pe [YouTube](https://www.youtube.com/watch?v=
 - **Integrare Llama API**: Scriptul Python se folosește de API-ul Llama pentru a procesa și răspunde întrebărilor utilizatorilor. Mai multe detalii despre Llama API găsiți [aici](https://github.com/ollama/ollama/blob/main/docs/api.md).
 - **Microservicii**: Atât Llama, cât și backend-ul Java sunt implementate ca microservicii pentru această aplicație.
 - **Bază de Date**: Aplicația folosește o bază de date SQL pentru stocarea datelor, reprezentată printr-o diagramă UML.
+- **Testare cu Docker**: Pentru testarea aplicației, s-a utilizat un container Docker care găzduiește baza de date.
+- **Frontend în Python**: Interfața utilizator este realizată în Python, oferind o experiență ușor de utilizat și integrată.
 
 
 ### Schema Logică a Aplicației
