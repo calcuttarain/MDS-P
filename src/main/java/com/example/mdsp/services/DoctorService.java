@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class DoctorService {
     public DoctorService() {}
@@ -24,7 +26,9 @@ public class DoctorService {
 
     public static List<Doctor> getDoctorsBySpecialization(String specialization) throws SQLException {
         List<Doctor> doctors = repo.getDoctorsBySpecialization(specialization);
-        return doctors;
+        return doctors.stream()
+                .peek(doctor -> doctor.setPassword_hash(null))
+                .collect(Collectors.toList());
     }
 
 }

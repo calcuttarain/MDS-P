@@ -1,5 +1,6 @@
 package com.example.mdsp.services;
 
+import com.example.mdsp.exceptions.ElementNotFoundException;
 import com.example.mdsp.models.Appointment;
 import com.example.mdsp.models.Status;
 import com.example.mdsp.repos.AppointmentRepo;
@@ -28,7 +29,8 @@ public class AppointmentService {
         }
     }
 
-    public static void approveAppointment(Appointment appointment) throws SQLException {
+    public static void approveAppointment(int appointment_id) throws ElementNotFoundException {
+        Appointment appointment = appointment_repo.get(appointment_id);
         appointment.setStatus(Status.CONFIRMED);
         appointment_repo.update(appointment);
     }

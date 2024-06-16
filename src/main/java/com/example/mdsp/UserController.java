@@ -1,9 +1,7 @@
 package com.example.mdsp;
 
 import com.example.mdsp.exceptions.EmailAlreadyExistsException;
-import com.example.mdsp.models.Patient;
-import com.example.mdsp.models.Role;
-import com.example.mdsp.models.User;
+import com.example.mdsp.models.*;
 import com.example.mdsp.services.*;
 import com.example.mdsp.exceptions.ElementNotFoundException;
 import com.example.mdsp.exceptions.WrongPasswordException;
@@ -22,6 +20,7 @@ public class UserController {
     private final LoginService loginService;
     private final UserService userService;
     private User user;
+    private int user_id;
 
     @Autowired
     public UserController(RegisterService registerService, LoginService loginService, UserService userService) {
@@ -72,28 +71,37 @@ public class UserController {
                     );
                     Role role = UserService.getRole(userId);
                     if(role == Role.PATIENT) {
-                        this.user = PatientService.getPatient(userId);
+                        Patient patient = PatientService.getPatient(userId);
                         response.put("result", "Patient authenticated successfully.");
+                        response.put("patient", patient);
                     }
                     else {
-                        this.user = DoctorService.getDoctor(userId);
+                        Doctor doctor = DoctorService.getDoctor(userId);
                         response.put("result", "Doctor authenticated successfully.");
+                        response.put("doctor", doctor);
                     }
-                    response.put("user_id", userId);
                     break;
                 case "changePassword":
+                    String userIdStr = (String) parameters.get("user_id");
+                    user_id = Integer.parseInt(userIdStr);
                     String newPassword = (String) parameters.get("new_password");
-                    userService.changePassword(user, newPassword);
+                    userService.changePassword(user_id, newPassword);
                     response.put("result", "Password changed successfully.");
                     break;
+
                 case "changeEmail":
+                    String userIdStr1 = (String) parameters.get("user_id");
+                    user_id = Integer.parseInt(userIdStr1);
                     String newEmail = (String) parameters.get("new_email");
-                    userService.changeEmail(user, newEmail);
+                    userService.changeEmail(user_id, newEmail);
                     response.put("result", "Email changed successfully.");
                     break;
                 case "changePhone":
+                    String userIdStr2 = (String) parameters.get("user_id");
+                    user_id = Integer.parseInt(userIdStr2);
+                    user_id = (int) parameters.get("user_id");
                     String newPhone = (String) parameters.get("new_phone");
-                    userService.changePhone(user, newPhone);
+                    userService.changePhone(user_id, newPhone);
                     response.put("result", "Phone changed successfully.");
                     break;
                 default:

@@ -2,7 +2,7 @@ server:
   port: 8081
   tomcat:
     socket-options:
-      soLinger: -1  # Disable SO_LINGER option
+      soLinger: -1
 
 spring:
   datasource:
