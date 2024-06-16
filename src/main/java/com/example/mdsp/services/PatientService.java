@@ -1,8 +1,8 @@
-package business.services;
+package com.example.mdsp.business.services;
 
-import business.models.Patient;
-import exceptions.ElementNotFoundException;
-import persistance.repos.PatientRepo;
+import com.example.mdsp.business.models.Patient;
+import com.example.mdsp.exceptions.ElementNotFoundException;
+import com.example.mdsp.repos.PatientRepo;
 
 import java.sql.SQLException;
 

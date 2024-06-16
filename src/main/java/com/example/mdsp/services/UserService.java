@@ -1,10 +1,10 @@
-package business.services;
+package com.example.mdsp.business.services;
 
-import business.models.Role;
-import business.models.User;
-import exceptions.ElementNotFoundException;
-import exceptions.EmailAlreadyExistsException;
-import persistance.repos.UserRepo;
+import com.example.mdsp.business.models.Role;
+import com.example.mdsp.business.models.User;
+import com.example.mdsp.exceptions.ElementNotFoundException;
+import com.example.mdsp.exceptions.EmailAlreadyExistsException;
+import com.example.mdsp.repos.UserRepo;
 
 import java.sql.SQLException;
 

@@ -1,8 +1,8 @@
-package business.services;
+package com.example.mdsp.business.services;
 
-import exceptions.ElementNotFoundException;
-import exceptions.WrongPasswordException;
-import persistance.repos.UserRepo;
+import com.example.mdsp.exceptions.ElementNotFoundException;
+import com.example.mdsp.exceptions.WrongPasswordException;
+import com.example.mdsp.repos.UserRepo;
 
 import java.sql.SQLException;
 

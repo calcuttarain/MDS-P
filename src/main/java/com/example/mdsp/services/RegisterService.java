@@ -1,12 +1,13 @@
-package business.services;
-import business.models.Doctor;
-import business.models.Patient;
-import business.models.Role;
-import persistance.repos.DoctorRepo;
-import persistance.repos.PatientRepo;
-
+package com.example.mdsp.business.services;
+import com.example.mdsp.business.models.Doctor;
+import com.example.mdsp.business.models.Patient;
+import com.example.mdsp.business.models.Role;
+import com.example.mdsp.repos.DoctorRepo;
+import com.example.mdsp.repos.PatientRepo;
+import org.springframework.stereotype.Service;
 import java.sql.SQLException;
 
+@Service
 public final class RegisterService {
     private RegisterService() {}
 

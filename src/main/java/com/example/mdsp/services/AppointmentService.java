@@ -1,11 +1,8 @@
-package business.services;
+package com.example.mdsp.business.services;
 
-import business.models.Appointment;
-import business.models.Patient;
-import business.models.Status;
-import persistance.repos.AbstractRepo;
-import persistance.repos.AppointmentRepo;
-import persistance.repos.PatientRepo;
+import com.example.mdsp.business.models.Appointment;
+import com.example.mdsp.business.models.Status;
+import com.example.mdsp.repos.AppointmentRepo;
 
 import java.sql.SQLException;
 import java.text.ParseException;

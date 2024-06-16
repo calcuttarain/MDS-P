@@ -1,4 +1,4 @@
-package business.models;
+package com.example.mdsp.business.models;
 
 public abstract class User {
     protected final int user_id;

@@ -1,4 +1,4 @@
-package business.models;
+package com.example.mdsp.business.models;
 
 import java.util.Date;
 

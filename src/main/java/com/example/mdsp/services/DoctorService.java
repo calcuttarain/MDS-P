@@ -1,15 +1,10 @@
-package business.services;
+package com.example.mdsp.business.services;
 
-import business.models.Appointment;
-import business.models.Doctor;
-import business.models.Patient;
-import exceptions.ElementNotFoundException;
-import persistance.repos.AppointmentRepo;
-import persistance.repos.DoctorRepo;
-import persistance.repos.PatientRepo;
+import com.example.mdsp.business.models.Doctor;
+import com.example.mdsp.exceptions.ElementNotFoundException;
+import com.example.mdsp.repos.DoctorRepo;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorService {

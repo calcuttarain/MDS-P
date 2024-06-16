@@ -1,4 +1,4 @@
-package business.models;
+package com.example.mdsp.business.models;
 
 public final class Patient extends User {
     private String medical_history;

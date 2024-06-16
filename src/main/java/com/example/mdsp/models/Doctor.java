@@ -1,4 +1,4 @@
-package business.models;
+package com.example.mdsp.business.models;
 
 public final class Doctor extends User {
     private String specialization;
